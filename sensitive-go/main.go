@@ -26,6 +26,15 @@ func init (){
     /* init log config */
     // FIXME:log init
 
+    /* init sql session */
+    var err error
+    session, err = mgo.Dial(conf.ConfigMap["db.ip"]+":"+conf.ConfigMap["db.port"])
+    if err != nil {
+        panic(err)
+    }
+
+    // Optional. Switch the session to a monotonic behavior.
+    session.SetMode(mgo.Monotonic, true)
 
     /* init DFA tree */
     var list []model.WordStruct
