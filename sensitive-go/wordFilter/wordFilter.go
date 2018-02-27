@@ -24,9 +24,9 @@ var sensitiveWordMap wordtree
 func LoadSensitiveWord (set []string) {
 	for _ , value := range set {
 		nowMap := &sensitiveWordMap
-		wordLenth := len(value)
+		wordLenth := len([]rune(value))
 		for i := 0 ; i < wordLenth ; i ++ {
-			char := string(value[i])
+			char := string([]rune(value)[i])
 			wordMap := nowMap.tree[char]
 			if wordMap != nil {  
 				nowMap = wordMap
@@ -43,6 +43,7 @@ func LoadSensitiveWord (set []string) {
 			}
 		}
 	}
+	fmt.Println(sensitiveWordMap.tree["测"])
 	fmt.Println("load sensitive word map end ...")
 }
 /**
@@ -93,21 +94,21 @@ func ReplaceSensitiveWord (txt string) string {
 	nowMap := &sensitiveWordMap
 
 LABEL1:
-	for i := 0 ; i < len(txt) ; i++ {
-		word = string(txt[i])
+	for i := 0 ; i < len([]rune(txt)) ; i++ {
+		word = string([]rune(txt)[i])
 		nowMap = nowMap.tree[word]
 		if nowMap != nil {
 			failWord.WriteString(word)
 			if nowMap.isEnd {
 				if len(nowMap.tree) == 0 {
-					resultText = replace(len(failWord.String()),i,resultText)
+					resultText = replace(len([]rune(failWord.String())),i,resultText)
 
 					nowMap = &sensitiveWordMap
 					failWord.Reset()
 					continue LABEL1
 				} else if len(nowMap.tree) > 1 {
 					if i == (len(txt)-1) {
-						resultText = replace(len(failWord.String()),i,resultText)
+						resultText = replace(len([]rune(failWord.String())),i,resultText)
 
 						nowMap = &sensitiveWordMap
 						failWord.Reset()
@@ -149,8 +150,8 @@ func replace (failLength int ,local int ,preWord string) string{
 	for j := 0 ; j < failLength ; j++ {
 		replaceWord.WriteString("*")
 	}
-	prefix := string(preWord[0:local-(failLength-1)])
-	suffix := string(preWord[local+1:len(preWord)])
+	prefix := string([]rune(preWord)[0:local-(failLength-1)])
+	suffix := string([]rune(preWord)[local+1:len(preWord)])
 	return strings.Join([]string{prefix , replaceWord.String() , suffix},"")
 }
 

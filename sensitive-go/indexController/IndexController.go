@@ -9,9 +9,9 @@ import (
 
     "github.com/julienschmidt/httprouter"
 
-    "goSensitive/sensitivefilter/dao"
-    "goSensitive/sensitivefilter/model"
-    "goSensitive/sensitivefilter/wordFilter"
+    "sensitive-go/sensitive-go/dao"
+    "sensitive-go/sensitive-go/model"
+    "sensitive-go/sensitive-go/wordFilter"
 )
 
 type Controller struct{

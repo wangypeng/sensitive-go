@@ -6,7 +6,7 @@ import (
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 
-	"goSensitive/sensitivefilter/model"
+	"sensitive-go/sensitive-go/model"
 )	
 
 type Dao struct{

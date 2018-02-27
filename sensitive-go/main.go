@@ -7,16 +7,23 @@ import (
 	"net/http"
 
     "gopkg.in/mgo.v2"
-    "gopkg.in/mgo.v2/bson"
+    // "gopkg.in/mgo.v2/bson"
 	
-    "goSensitive/sensitivefilter/indexController"
-    "goSensitive/sensitivefilter/model"
-    "goSensitive/sensitivefilter/wordFilter"
-    "goSensitive/sensitivefilter/conf"
-    "goSensitive/sensitivefilter/constant"
+    "sensitive-go/sensitive-go/indexController"
+    // "goSensitive/sensitivefilter/model"
+    "sensitive-go/sensitive-go/wordFilter"
+    "sensitive-go/sensitive-go/conf"
+    "sensitive-go/sensitive-go/constant"
 )
 
 var session *mgo.Session
+
+
+type word struct{
+	Word string		
+	TimeStamp int	
+}
+
 
 func init (){
 
@@ -37,14 +44,16 @@ func init (){
     session.SetMode(mgo.Monotonic, true)
 
     /* init DFA tree */
-    var list []model.WordStruct
+    var list []word
     
-    session.DB(constant.Db_C_sensitive).C(constant.Db_DB_test).Find(bson.M{}).All(&list)
+    session.DB(constant.Db_C_sensitive).C(constant.Db_DB_test).Find(nil).All(&list)
 
-    set := make([]string, 10)
+    fmt.Println(list)
+
+    set := make([]string,0)
     for index,value := range list {
         fmt.Println(index)
-        fmt.Println(value)
+        fmt.Println([]rune(value.Word))
         set = append(set,value.Word)
     }
     wordFilter.LoadSensitiveWord(set)
