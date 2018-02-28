@@ -55,7 +55,7 @@ func DelSensitiveWord (delword string){
 	nowMap := &sensitiveWordMap
 	forkNo := 0
 LABEL1:
-	for i := 0 ; i < len(delword) ; i ++ {
+	for i := 0 ; i < len([]rune(delword)) ; i ++ {
 		word := string(delword[i])
 		if(len(nowMap.tree) > 2){
 			forkNo = i;
