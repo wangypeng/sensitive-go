@@ -151,7 +151,7 @@ func replace (failLength int ,local int ,preWord string) string{
 		replaceWord.WriteString("*")
 	}
 	prefix := string([]rune(preWord)[0:local-(failLength-1)])
-	suffix := string([]rune(preWord)[local+1:len(preWord)])
+	suffix := string([]rune(preWord)[local+1:len([]rune(preWord))])
 	return strings.Join([]string{prefix , replaceWord.String() , suffix},"")
 }
 
