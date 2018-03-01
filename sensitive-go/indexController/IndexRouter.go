@@ -19,7 +19,7 @@ func InitRoute(session *mgo.Session) *httprouter.Router {
 	route := httprouter.New()
 	route.PUT("/add", log(contoller.addSensitive))
 	route.GET("/check", log(contoller.check))
-	route.DELETE("/del", contoller.delSensitive)
+	route.DELETE("/del", log(contoller.delSensitive))
 	return route
 
 }
